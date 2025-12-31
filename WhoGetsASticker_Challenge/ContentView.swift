@@ -34,14 +34,28 @@ struct ContentView: View {
             Image("sticker")
                 .resizable()
                 .scaledToFit()
-            
             Spacer()
             
-            Text("This Week's Psters Are:")
+            Text("This Week's Winner is: Eagly")
+                .font(.largeTitle)
+                .multilineTextAlignment(.center)
+                .frame(height: 100)
+                .frame(maxWidth: .infinity)
+            Spacer()
+            Spacer()
+            
+            Text("This Week's Posters Are:")
                 .font(.largeTitle)
                 .fontWeight(.black)
-            Text("No Posters This Week")
+                .multilineTextAlignment(.center)
+                .frame(height: 100)
+                .frame(maxWidth: .infinity)
+//            Text("No Posters This Week")
+            Text("Chris, Ads, Eagly, Rip, Emilia")
                 .font(.largeTitle)
+                .multilineTextAlignment(.center)
+                .frame(height: 100)
+                .frame(maxWidth: .infinity)
             
             HStack {
                 TextField("enter name", text: $name)
