@@ -13,6 +13,7 @@ struct ContentView: View {
     @State private var name = ""
     @State private var posterNames: [String] = []
     @State private var postersString = "No Posters This Week"
+    @State private var winner = ""
     
     @FocusState private var textFieldIsFocused: Bool
     
@@ -24,14 +25,19 @@ struct ContentView: View {
             
             HStack {
                 Button("Clear") {
-                    
+                    posterNames = []
+                    postersString = "No Posters This Week"
+                    winner = ""
                 }
-                .tint(.red)
+                .tint(posterNames.isEmpty ? .gray.opacity(0.5) : .red)
                 Spacer()
                 Button("Pick a Winner") {
-                    
+                    guard let posterWinner = posterNames.randomElement() else {
+                        return
+                    }
+                    winner = posterWinner
                 }
-                .tint(.green)
+                .tint(posterNames.isEmpty ? .gray.opacity(0.5) : .green)
             }
             .buttonStyle(.borderedProminent)
             
@@ -40,7 +46,7 @@ struct ContentView: View {
                 .scaledToFit()
                 .padding(.bottom, 40)
             
-            Text("This Week's Winner is: Eagly")
+            Text(!winner.isEmpty ? "This Week's Winner is: \(winner)" : "")
                 .font(.largeTitle)
                 .multilineTextAlignment(.center)
                 .frame(height: 100)
@@ -64,7 +70,7 @@ struct ContentView: View {
                     .focused($textFieldIsFocused)
                     .overlay {
                         RoundedRectangle(cornerRadius: 5)
-                            .stroke(.gray, lineWidth: 2)
+                            .stroke(.gray, lineWidth: 1)
                     }
                     .submitLabel(.done)
                     .autocorrectionDisabled()
