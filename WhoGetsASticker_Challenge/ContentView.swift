@@ -25,11 +25,12 @@ struct ContentView: View {
             
             HStack {
                 Button("Clear") {
-                    posterNames = []
+                    posterNames.removeAll()
                     postersString = "No Posters This Week"
                     winner = ""
+                    textFieldIsFocused = false
                 }
-                .tint(posterNames.isEmpty ? .gray.opacity(0.5) : .red)
+                .tint(.red.opacity(0.8))
                 Spacer()
                 Button("Pick a Winner") {
                     guard let posterWinner = posterNames.randomElement() else {
@@ -37,10 +38,12 @@ struct ContentView: View {
                     }
                     winner = posterWinner
                 }
-                .tint(posterNames.isEmpty ? .gray.opacity(0.5) : .green)
+                .tint(.green.opacity(0.8))
+                
             }
+            .font(.title2).bold()
             .buttonStyle(.borderedProminent)
-            .foregroundStyle(posterNames.isEmpty ? .gray : .white)
+            .disabled(posterNames.isEmpty)
             
             Image("sticker")
                 .resizable()
@@ -50,7 +53,7 @@ struct ContentView: View {
             Text(!winner.isEmpty ? "This Week's Winner is: \(winner)" : "")
                 .font(.largeTitle)
                 .multilineTextAlignment(.center)
-                .frame(height: 100)
+                .minimumScaleFactor(0.5)
                 .frame(maxWidth: .infinity)
             Spacer()
             
@@ -67,6 +70,7 @@ struct ContentView: View {
             
             HStack {
                 TextField("enter name", text: $name)
+                    .font(.title2)
                     .textFieldStyle(.roundedBorder)
                     .keyboardType(.asciiCapable)
                     .focused($textFieldIsFocused)
@@ -92,6 +96,7 @@ struct ContentView: View {
                 } label: {
                     Image(systemName: "plus")
                 }
+                .font(.title2).bold()
                 .disabled(name.isEmpty)
 
             }
