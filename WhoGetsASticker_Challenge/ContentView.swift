@@ -40,6 +40,7 @@ struct ContentView: View {
                 .tint(posterNames.isEmpty ? .gray.opacity(0.5) : .green)
             }
             .buttonStyle(.borderedProminent)
+            .foregroundStyle(posterNames.isEmpty ? .gray : .white)
             
             Image("sticker")
                 .resizable()
@@ -67,6 +68,7 @@ struct ContentView: View {
             HStack {
                 TextField("enter name", text: $name)
                     .textFieldStyle(.roundedBorder)
+                    .keyboardType(.asciiCapable)
                     .focused($textFieldIsFocused)
                     .overlay {
                         RoundedRectangle(cornerRadius: 5)
@@ -82,6 +84,7 @@ struct ContentView: View {
                     .onSubmit {
                         // protect against zero entry
                         guard name != "" else { return }
+                        updatePosterNames()
                     }
                 
                 Button {
@@ -103,8 +106,6 @@ struct ContentView: View {
         posterNames.append(name)
         name = ""
         postersString = posterNames.joined(separator: ", ")
-        // convenience set focus back to text field for next entry
-        textFieldIsFocused = true
     }
 }
 
